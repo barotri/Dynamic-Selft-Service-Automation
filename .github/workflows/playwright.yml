@@ -35,4 +35,14 @@ jobs:
           pytest --disable-warnings -v
         shell: powershell
 
-      - name: List report
+      - name: List report files
+        run: |
+          Get-ChildItem -Recurse playwright-report
+        shell: powershell
+
+      - name: Upload Playwright HTML report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
