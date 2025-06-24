@@ -18,9 +18,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Install Playwright Browsers
-        run: |
-          playwright install
+      # Bỏ qua bước cài Playwright Browsers vì đã được cài sẵn
 
       - name: Run tests
         run: |
