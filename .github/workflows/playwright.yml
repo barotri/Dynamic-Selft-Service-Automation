@@ -18,11 +18,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Bỏ qua bước cài Playwright Browsers vì đã được cài sẵn
+      # Bỏ bước cài Playwright Browsers vì đã cài sẵn
 
       - name: Run tests
         run: |
-          pytest --maxfail=1 --disable-warnings --capture=tee-sys --html=playwright-report/report.html --self-contained-html || pytest --disable-warnings -v
+          pytest --maxfail=1 --disable-warnings --capture=tee-sys --html=playwright-report/report.html --self-contained-html
+        shell: pwsh
+        continue-on-error: true
+
+      - name: Rerun failed tests (if any)
+        if: ${{ failure() }}
+        run: |
+          pytest --disable-warnings -v
+        shell: pwsh
 
       - name: Upload Playwright HTML report
         uses: actions/upload-artifact@v4
