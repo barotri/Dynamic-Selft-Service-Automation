@@ -55,3 +55,6 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report/
+        env:
+          NODE_TLS_REJECT_UNAUTHORIZED: '0'
+          
