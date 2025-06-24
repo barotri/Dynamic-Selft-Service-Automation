@@ -33,12 +33,16 @@ jobs:
           pytest --maxfail=1 --disable-warnings --capture=tee-sys --html=playwright-report/report.html --self-contained-html
         shell: powershell
         continue-on-error: true
+        env:
+          PYTHONIOENCODING: utf-8
 
       - name: Rerun failed tests (if any)
         if: ${{ failure() }}
         run: |
           pytest --disable-warnings -v
         shell: powershell
+        env:
+          PYTHONIOENCODING: utf-8
 
       - name: List report files
         run: |
