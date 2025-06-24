@@ -18,7 +18,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Bỏ bước cài Playwright Browsers vì đã cài sẵn
+      - name: Create report directory
+        run: |
+          New-Item -ItemType Directory -Force -Path playwright-report
+        shell: pwsh
 
       - name: Run tests
         run: |
@@ -30,6 +33,11 @@ jobs:
         if: ${{ failure() }}
         run: |
           pytest --disable-warnings -v
+        shell: pwsh
+
+      - name: List report files
+        run: |
+          Get-ChildItem -Recurse playwright-report
         shell: pwsh
 
       - name: Upload Playwright HTML report
